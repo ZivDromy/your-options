@@ -497,8 +497,7 @@ header { animation-delay: 0.05s; }
     const amounts = [s.amountA, s.amountB, s.amountC];
 
     $('milestones').innerHTML = stages.map((stage, i) => {
-      const featured = i === 2 ? ' featured' : '';
-      return '<div class="milestone' + featured + '">' +
+      return '<div class="milestone featured">' +
         '<span class="milestone-stage">' + stage + '</span>' +
         '<span class="milestone-context">בוולואציה ' + fmtValM(valuations[i]) + '</span>' +
         '<span class="milestone-amount">' + fmtUSD(amounts[i]) + '</span>' +
