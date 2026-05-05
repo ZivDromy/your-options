@@ -367,6 +367,42 @@ input[type="range"]::-moz-range-thumb {
   color: var(--ink);
 }
 
+.disclaimer {
+  background: var(--bg-card);
+  border-right: 3px solid var(--accent);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.75rem;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+.disclaimer-label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.disclaimer p {
+  margin: 0;
+}
+
+.disclaimer p + p {
+  margin-top: 0.5rem;
+}
+
+.disclaimer strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
 @media (max-width: 380px) {
   h1 { font-size: 1.85rem; }
   .container { padding: 1.25rem 1rem 2rem; }
@@ -406,6 +442,12 @@ header { animation-delay: 0.05s; }
     <h1>כמה האופציות שלך<br><em>שוות</em>?</h1>
   </header>
 
+  <div class="disclaimer">
+    <span class="disclaimer-label">לפני שמתחילים</span>
+    <p>זהו <strong>כלי לחקירת תרחישים</strong>, לא תחזית. המטרה היא לתת תחושה לטווח האפשרי של שווי האופציות שלך לאורך מסלול גיוס סטנדרטי — לא להבטיח תוצאה.</p>
+    <p>בפועל יש המון גורמים שמשפיעים: חברות לא תמיד מגיעות לסבב הבא, ולואציות עולות ויורדות, דילול אמיתי כולל גם option pool refresh ו-anti-dilution, וקיימים liquidation preferences שמשנים מי מקבל מה באקזיט. <strong>אל תקבל החלטות חיים על בסיס המספרים כאן.</strong></p>
+  </div>
+
   <div class="section">
     <div class="section-head">
       <span class="section-num">i</span>
@@ -430,9 +472,9 @@ header { animation-delay: 0.05s; }
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">ולואציה בסבב A</span>
-        <span class="slider-value" id="val-a-out">$300M</span>
+        <span class="slider-value" id="val-a-out">$200M</span>
       </div>
-      <input type="range" id="val-a-slider" min="100" max="1000" step="10" value="300">
+      <input type="range" id="val-a-slider" min="100" max="1000" step="10" value="200">
     </div>
     <div class="slider-group">
       <div class="slider-header">
@@ -444,9 +486,9 @@ header { animation-delay: 0.05s; }
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">ולואציה בסבב B</span>
-        <span class="slider-value" id="val-b-out">$600M</span>
+        <span class="slider-value" id="val-b-out">$400M</span>
       </div>
-      <input type="range" id="val-b-slider" min="200" max="3000" step="25" value="600">
+      <input type="range" id="val-b-slider" min="200" max="3000" step="25" value="400">
     </div>
     <div class="slider-group">
       <div class="slider-header">
@@ -458,9 +500,9 @@ header { animation-delay: 0.05s; }
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">ולואציה בסבב C</span>
-        <span class="slider-value" id="val-c-out">$1.5B</span>
+        <span class="slider-value" id="val-c-out">$1B</span>
       </div>
-      <input type="range" id="val-c-slider" min="500" max="7000" step="50" value="1500">
+      <input type="range" id="val-c-slider" min="500" max="7000" step="50" value="1000">
     </div>
     <div class="slider-group">
       <div class="slider-header">
