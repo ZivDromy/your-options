@@ -303,11 +303,37 @@ input[type="range"]::-moz-range-thumb {
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.025em;
   line-height: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+}
+
+.milestone-amount-ils {
+  font-family: 'Assistant', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  letter-spacing: 0;
 }
 
 .milestone.featured .milestone-amount {
   color: var(--accent);
   font-size: 2.65rem;
+}
+
+.milestone.featured .milestone-amount-ils {
+  color: var(--accent-light);
+  font-size: 0.95rem;
+}
+
+.fx-note {
+  text-align: center;
+  margin-top: 0.625rem;
+  font-size: 0.7rem;
+  color: var(--ink-3);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.04em;
 }
 
 .footnote {
@@ -431,6 +457,7 @@ header { animation-delay: 0.05s; }
   </div>
 
   <div class="milestones" id="milestones"></div>
+  <div class="fx-note" id="fx-note">USD/ILS · טוען...</div>
 
   <div class="footnote">
     <strong>הערה:</strong> החישובים לא לוקחים בחשבון מיסוי או מבנה אקזיט.
@@ -440,11 +467,22 @@ header { animation-delay: 0.05s; }
 
 <script>
 (function(){
+  const FX_FALLBACK = 2.96;
+  let fxRate = FX_FALLBACK;
+  let fxStatus = 'fallback';
+
   const fmtUSD = (n) => {
     if (n >= 1000000000) return '$' + (Math.round(n / 100000000) / 10).toFixed(1).replace(/\.0$/, '') + 'B';
     if (n >= 1000000) return '$' + (Math.round(n / 100000) / 10).toFixed(1).replace(/\.0$/, '') + 'M';
     if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
     return '$' + Math.round(n);
+  };
+
+  const fmtILS = (n) => {
+    if (n >= 1000000000) return '₪' + (Math.round(n / 100000000) / 10).toFixed(1).replace(/\.0$/, '') + 'B';
+    if (n >= 1000000) return '₪' + (Math.round(n / 100000) / 10).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n >= 1000) return '₪' + Math.round(n / 1000) + 'K';
+    return '₪' + Math.round(n);
   };
 
   const fmtValM = (m) => m >= 1000
@@ -497,13 +535,46 @@ header { animation-delay: 0.05s; }
     const amounts = [s.amountA, s.amountB, s.amountC];
 
     $('milestones').innerHTML = stages.map((stage, i) => {
+      const usd = amounts[i];
+      const ils = usd * fxRate;
       return '<div class="milestone featured">' +
         '<span class="milestone-stage">' + stage + '</span>' +
         '<span class="milestone-context">בוולואציה ' + fmtValM(valuations[i]) + '</span>' +
-        '<span class="milestone-amount">' + fmtUSD(amounts[i]) + '</span>' +
+        '<span class="milestone-amount">' +
+          '<span>' + fmtUSD(usd) + '</span>' +
+          '<span class="milestone-amount-ils">≈ ' + fmtILS(ils) + '</span>' +
+        '</span>' +
       '</div>';
     }).join('');
+
+    const note = $('fx-note');
+    if (fxStatus === 'live') {
+      note.textContent = 'USD/ILS · ' + fxRate.toFixed(3) + ' (שער חי)';
+    } else if (fxStatus === 'fallback') {
+      note.textContent = 'USD/ILS · ' + fxRate.toFixed(3) + ' (שער מקורב)';
+    } else {
+      note.textContent = 'USD/ILS · טוען...';
+    }
   }
+
+  fxStatus = 'loading';
+  fetch('https://open.er-api.com/v6/latest/USD')
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(data => {
+      if (data && data.rates && typeof data.rates.ILS === 'number') {
+        fxRate = data.rates.ILS;
+        fxStatus = 'live';
+      } else {
+        fxRate = FX_FALLBACK;
+        fxStatus = 'fallback';
+      }
+      render();
+    })
+    .catch(() => {
+      fxRate = FX_FALLBACK;
+      fxStatus = 'fallback';
+      render();
+    });
 
   ['grant-slider', 'val-a-slider', 'val-b-slider', 'val-c-slider', 'dil-a-slider', 'dil-b-slider', 'dil-c-slider'].forEach(id => {
     $(id).addEventListener('input', render);
