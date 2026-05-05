@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2">
+<title>תחזית האופציות שלך</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F1ECE2;
+  --bg-card: #FAF6EC;
+  --bg-card-warm: #F6F0E2;
+  --ink: #1A1411;
+  --ink-2: #5C5249;
+  --ink-3: #9C9087;
+  --line: #D9CFBE;
+  --line-strong: #B8AC97;
+  --accent: #2D5A48;
+  --accent-light: #5A8270;
+}
+
+body {
+  font-family: 'Assistant', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+  font-size: 15px;
+  min-height: 100vh;
+  background-image: radial-gradient(ellipse 600px 500px at 100% 0%, rgba(45,90,72,0.09) 0%, transparent 60%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+header {
+  margin-bottom: 1.5rem;
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+h1 {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 2.2rem;
+  line-height: 1.05;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.hero {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 1.5rem 1.5rem 1.25rem;
+  position: relative;
+  margin-bottom: 1.75rem;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 22px;
+  height: 22px;
+  border-top: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+}
+
+.hero-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  font-weight: 600;
+  margin-bottom: 0.875rem;
+}
+
+.hero-value {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 3.3rem;
+  line-height: 1;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.hero-meta {
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  font-style: italic;
+}
+
+.section {
+  margin-bottom: 1.5rem;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.section-num {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.section-title {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.section-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.slider-group {
+  margin-bottom: 1.1rem;
+}
+
+.slider-group:last-child {
+  margin-bottom: 0;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+}
+
+.slider-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
+.slider-value {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: var(--line-strong);
+  outline: none;
+  cursor: pointer;
+  border-radius: 1px;
+  margin: 0.5rem 0 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: grab;
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--accent);
+  transition: transform 0.12s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.1);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: grab;
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.chart-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 1rem 0.875rem 0.5rem;
+  height: 220px;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.milestones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-top: 0.5rem;
+}
+
+.milestone {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 1.1rem 1.25rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+.milestone.featured {
+  background: var(--bg-card-warm);
+  border-color: var(--accent);
+}
+
+.milestone.featured::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 16px;
+  height: 16px;
+  border-top: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+}
+
+.milestone-stage {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  font-weight: 700;
+}
+
+.milestone-context {
+  grid-column: 1;
+  grid-row: 2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+
+.milestone-amount {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 2.25rem;
+  font-weight: 500;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+.milestone.featured .milestone-amount {
+  color: var(--accent);
+  font-size: 2.65rem;
+}
+
+.footnote {
+  margin-top: 1.25rem;
+  padding: 0.875rem 1rem;
+  font-size: 0.72rem;
+  color: var(--ink-2);
+  line-height: 1.55;
+  font-style: italic;
+  border: 1px dashed var(--line);
+}
+
+.footnote strong {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+@media (max-width: 380px) {
+  h1 { font-size: 1.85rem; }
+  .container { padding: 1.25rem 1rem 2rem; }
+  .milestone-amount { font-size: 1.85rem; }
+  .milestone.featured .milestone-amount { font-size: 2.2rem; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+header, .hero, .section, .chart-wrap, .milestones, .footnote {
+  animation: fadeUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+header { animation-delay: 0.05s; }
+.hero { animation-delay: 0.15s; }
+.section:nth-of-type(1) { animation-delay: 0.25s; }
+.section:nth-of-type(2) { animation-delay: 0.35s; }
+.chart-wrap { animation-delay: 0.45s; }
+.milestones { animation-delay: 0.5s; }
+.footnote { animation-delay: 0.55s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="eyebrow">תחזית האופציות העתידית</div>
+    <h1>מה האופציות שלך<br><em>שוות</em>?</h1>
+  </header>
+
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">i</span>
+      <span class="section-title">האופציות שלך</span>
+      <span class="section-rule"></span>
+    </div>
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">גודל האופציות הנוכחי</span>
+        <span class="slider-value" id="grant-out">0.05%</span>
+      </div>
+      <input type="range" id="grant-slider" min="0.05" max="1" step="0.05" value="0.05">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">ii</span>
+      <span class="section-title">ציפיות עתידיות</span>
+      <span class="section-rule"></span>
+    </div>
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">ולואציה בסבב A</span>
+        <span class="slider-value" id="val-a-out">$300M</span>
+      </div>
+      <input type="range" id="val-a-slider" min="100" max="1000" step="10" value="300">
+    </div>
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">דילול בסבב A</span>
+        <span class="slider-value" id="dil-a-out">20%</span>
+      </div>
+      <input type="range" id="dil-a-slider" min="10" max="35" step="1" value="20">
+    </div>
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">ולואציה בסבב B</span>
+        <span class="slider-value" id="val-b-out">$700M</span>
+      </div>
+      <input type="range" id="val-b-slider" min="200" max="3000" step="25" value="700">
+    </div>
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">דילול בסבב B</span>
+        <span class="slider-value" id="dil-b-out">18%</span>
+      </div>
+      <input type="range" id="dil-b-slider" min="10" max="30" step="1" value="18">
+    </div>
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">ולואציה בסבב C</span>
+        <span class="slider-value" id="val-c-out">$1.5B</span>
+      </div>
+      <input type="range" id="val-c-slider" min="500" max="7000" step="50" value="1500">
+    </div>
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">דילול בסבב C</span>
+        <span class="slider-value" id="dil-c-out">15%</span>
+      </div>
+      <input type="range" id="dil-c-slider" min="8" max="25" step="1" value="15">
+    </div>
+  </div>
+
+  <div class="milestones" id="milestones"></div>
+
+  <div class="footnote">
+    <strong>הערה:</strong> החישובים לא לוקחים בחשבון מיסוי או מבנה אקזיט. הוולואציות הוצגו לפני סבבי הגיוס שיכולות לשנות את התוצאות הסופיות - ערכי ברירת המחדל הן הערכות ולפני השפעות סטרייט סופית. הסימולציה מציגה את השווי הצפוי של האופציות אחרי תהליך התגדלות והשפעות הוולואציות שמופיעות.
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const fmtUSD = (n) => {
+    if (n >= 1000000000) return '$' + (Math.round(n / 100000000) / 10).toFixed(1).replace(/\.0$/, '') + 'B';
+    if (n >= 1000000) return '$' + (Math.round(n / 100000) / 10).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+    return '$' + Math.round(n);
+  };
+
+  const fmtValM = (m) => m >= 1000
+    ? '$' + (Math.round(m / 100) / 10).toFixed(1).replace(/\.0$/, '') + 'B'
+    : '$' + Math.round(m) + 'M';
+
+  const $ = (id) => document.getElementById(id);
+
+  function compute() {
+    const grantPct = parseFloat($('grant-slider').value);
+    const valAm = parseFloat($('val-a-slider').value);
+    const valBm = parseFloat($('val-b-slider').value);
+    const valCm = parseFloat($('val-c-slider').value);
+    const dilA = parseFloat($('dil-a-slider').value) / 100;
+    const dilB = parseFloat($('dil-b-slider').value) / 100;
+    const dilC = parseFloat($('dil-c-slider').value) / 100;
+    const valA = valAm * 1000000;
+    const valB = valBm * 1000000;
+    const valC = valCm * 1000000;
+
+    const pctAfterA = grantPct * (1 - dilA);
+    const pctAfterB = pctAfterA * (1 - dilB);
+    const pctAfterC = pctAfterB * (1 - dilC);
+
+    return {
+      grantPct,
+      valAm, valBm, valCm,
+      dilA, dilB, dilC,
+      valA, valB, valC,
+      pctAfterA, pctAfterB, pctAfterC,
+      amountA: valA * pctAfterA / 100,
+      amountB: valB * pctAfterB / 100,
+      amountC: valC * pctAfterC / 100
+    };
+  }
+
+  function render() {
+    const s = compute();
+
+    $('grant-out').textContent = s.grantPct.toFixed(2) + '%';
+    $('val-a-out').textContent = fmtValM(s.valAm);
+    $('val-b-out').textContent = fmtValM(s.valBm);
+    $('val-c-out').textContent = fmtValM(s.valCm);
+    $('dil-a-out').textContent = (s.dilA * 100).toFixed(0) + '%';
+    $('dil-b-out').textContent = (s.dilB * 100).toFixed(0) + '%';
+    $('dil-c-out').textContent = (s.dilC * 100).toFixed(0) + '%';
+
+    const stages = ['אחרי סבב A', 'אחרי סבב B', 'אחרי סבב C'];
+    const valuations = [s.valAm, s.valBm, s.valCm];
+    const amounts = [s.amountA, s.amountB, s.amountC];
+
+    $('milestones').innerHTML = stages.map((stage, i) => {
+      const featured = i === 2 ? ' featured' : '';
+      return '<div class="milestone' + featured + '">' +
+        '<span class="milestone-stage">' + stage + '</span>' +
+        '<span class="milestone-context">בוולואציה ' + fmtValM(valuations[i]) + '</span>' +
+        '<span class="milestone-amount">' + fmtUSD(amounts[i]) + '</span>' +
+      '</div>';
+    }).join('');
+  }
+
+  ['grant-slider', 'val-a-slider', 'val-b-slider', 'val-c-slider', 'dil-a-slider', 'dil-b-slider', 'dil-c-slider'].forEach(id => {
+    $(id).addEventListener('input', render);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
