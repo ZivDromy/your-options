@@ -52,6 +52,13 @@
   --line-strong: #B8AC97;
   --accent: #2D5A48;
   --accent-light: #5A8270;
+
+  --round-a: #2D5A48;
+  --round-a-light: #5A8270;
+  --round-b: #B5651D;
+  --round-b-light: #D49460;
+  --round-c: #7D2E40;
+  --round-c-light: #A85868;
 }
 
 body {
@@ -186,10 +193,15 @@ h1 em {
 .round-group {
   background: var(--bg-card);
   border: 1px solid var(--line);
+  border-right: 3px solid var(--round-color, var(--accent));
   padding: 1.1rem 1.1rem 0.9rem;
   margin-bottom: 1rem;
   position: relative;
 }
+
+.round-group.round-a { --round-color: var(--round-a); --round-color-light: var(--round-a-light); }
+.round-group.round-b { --round-color: var(--round-b); --round-color-light: var(--round-b-light); }
+.round-group.round-c { --round-color: var(--round-c); --round-color-light: var(--round-c-light); }
 
 .round-group:last-child {
   margin-bottom: 0;
@@ -203,9 +215,23 @@ h1 em {
   padding: 0 0.6rem;
   font-size: 0.7rem;
   letter-spacing: 0.22em;
-  color: var(--accent);
+  color: var(--round-color, var(--accent));
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.round-group .slider-value {
+  color: var(--round-color, var(--ink));
+}
+
+.round-group input[type="range"]::-webkit-slider-thumb {
+  background: var(--round-color, var(--accent));
+  box-shadow: 0 0 0 1px var(--round-color, var(--accent));
+}
+
+.round-group input[type="range"]::-moz-range-thumb {
+  background: var(--round-color, var(--accent));
+  box-shadow: 0 0 0 1px var(--round-color, var(--accent));
 }
 
 .round-group .slider-group {
@@ -310,7 +336,7 @@ input[type="range"]::-moz-range-thumb {
 
 .milestone.featured {
   background: var(--bg-card-warm);
-  border-color: var(--accent);
+  border-color: var(--round-color, var(--accent));
 }
 
 .milestone.featured::before {
@@ -320,8 +346,18 @@ input[type="range"]::-moz-range-thumb {
   right: -1px;
   width: 16px;
   height: 16px;
-  border-top: 2px solid var(--accent);
-  border-right: 2px solid var(--accent);
+  border-top: 2px solid var(--round-color, var(--accent));
+  border-right: 2px solid var(--round-color, var(--accent));
+}
+
+.milestone.round-a { --round-color: var(--round-a); --round-color-light: var(--round-a-light); }
+.milestone.round-b { --round-color: var(--round-b); --round-color-light: var(--round-b-light); }
+.milestone.round-c { --round-color: var(--round-c); --round-color-light: var(--round-c-light); }
+
+.milestone.featured.round-a .milestone-stage,
+.milestone.featured.round-b .milestone-stage,
+.milestone.featured.round-c .milestone-stage {
+  color: var(--round-color);
 }
 
 .milestone-stage {
@@ -366,12 +402,12 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .milestone.featured .milestone-amount {
-  color: var(--accent);
+  color: var(--round-color, var(--accent));
   font-size: 2.65rem;
 }
 
 .milestone.featured .milestone-amount-ils {
-  color: var(--accent-light);
+  color: var(--round-color-light, var(--accent-light));
   font-size: 0.95rem;
 }
 
@@ -502,7 +538,7 @@ header { animation-delay: 0.05s; }
       <span class="section-title">ציפיות עתידיות</span>
       <span class="section-rule"></span>
     </div>
-    <div class="round-group">
+    <div class="round-group round-a">
       <span class="round-group-label">סבב A</span>
       <div class="slider-group">
         <div class="slider-header">
@@ -520,7 +556,7 @@ header { animation-delay: 0.05s; }
       </div>
     </div>
 
-    <div class="round-group">
+    <div class="round-group round-b">
       <span class="round-group-label">סבב B</span>
       <div class="slider-group">
         <div class="slider-header">
@@ -538,7 +574,7 @@ header { animation-delay: 0.05s; }
       </div>
     </div>
 
-    <div class="round-group">
+    <div class="round-group round-c">
       <span class="round-group-label">סבב C</span>
       <div class="slider-group">
         <div class="slider-header">
@@ -635,10 +671,11 @@ header { animation-delay: 0.05s; }
     const valuations = [s.valAm, s.valBm, s.valCm];
     const amounts = [s.amountA, s.amountB, s.amountC];
 
+    const roundClasses = ['round-a', 'round-b', 'round-c'];
     $('milestones').innerHTML = stages.map((stage, i) => {
       const usd = amounts[i];
       const ils = usd * fxRate;
-      return '<div class="milestone featured">' +
+      return '<div class="milestone featured ' + roundClasses[i] + '">' +
         '<span class="milestone-stage">' + stage + '</span>' +
         '<span class="milestone-context">בוולואציה ' + fmtValM(valuations[i]) + '</span>' +
         '<span class="milestone-amount">' +
