@@ -183,6 +183,39 @@ h1 em {
   margin-bottom: 0;
 }
 
+.round-group {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 1.1rem 1.1rem 0.9rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.round-group:last-child {
+  margin-bottom: 0;
+}
+
+.round-group-label {
+  position: absolute;
+  top: -0.55rem;
+  right: 0.9rem;
+  background: var(--bg);
+  padding: 0 0.6rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.round-group .slider-group {
+  margin-bottom: 0.9rem;
+}
+
+.round-group .slider-group:last-child {
+  margin-bottom: 0;
+}
+
 .slider-header {
   display: flex;
   justify-content: space-between;
@@ -469,47 +502,58 @@ header { animation-delay: 0.05s; }
       <span class="section-title">ציפיות עתידיות</span>
       <span class="section-rule"></span>
     </div>
-    <div class="slider-group">
-      <div class="slider-header">
-        <span class="slider-label">ולואציה בסבב A</span>
-        <span class="slider-value" id="val-a-out">$200M</span>
+    <div class="round-group">
+      <span class="round-group-label">סבב A</span>
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-label">ולואציה</span>
+          <span class="slider-value" id="val-a-out">$200M</span>
+        </div>
+        <input type="range" id="val-a-slider" min="100" max="1000" step="10" value="200">
       </div>
-      <input type="range" id="val-a-slider" min="100" max="1000" step="10" value="200">
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-label">דילול</span>
+          <span class="slider-value" id="dil-a-out">20%</span>
+        </div>
+        <input type="range" id="dil-a-slider" min="10" max="35" step="1" value="20">
+      </div>
     </div>
-    <div class="slider-group">
-      <div class="slider-header">
-        <span class="slider-label">דילול בסבב A</span>
-        <span class="slider-value" id="dil-a-out">20%</span>
+
+    <div class="round-group">
+      <span class="round-group-label">סבב B</span>
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-label">ולואציה</span>
+          <span class="slider-value" id="val-b-out">$500M</span>
+        </div>
+        <input type="range" id="val-b-slider" min="200" max="3000" step="25" value="500">
       </div>
-      <input type="range" id="dil-a-slider" min="10" max="35" step="1" value="20">
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-label">דילול</span>
+          <span class="slider-value" id="dil-b-out">18%</span>
+        </div>
+        <input type="range" id="dil-b-slider" min="10" max="30" step="1" value="18">
+      </div>
     </div>
-    <div class="slider-group">
-      <div class="slider-header">
-        <span class="slider-label">ולואציה בסבב B</span>
-        <span class="slider-value" id="val-b-out">$500M</span>
+
+    <div class="round-group">
+      <span class="round-group-label">סבב C</span>
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-label">ולואציה</span>
+          <span class="slider-value" id="val-c-out">$1B</span>
+        </div>
+        <input type="range" id="val-c-slider" min="500" max="7000" step="50" value="1000">
       </div>
-      <input type="range" id="val-b-slider" min="200" max="3000" step="25" value="500">
-    </div>
-    <div class="slider-group">
-      <div class="slider-header">
-        <span class="slider-label">דילול בסבב B</span>
-        <span class="slider-value" id="dil-b-out">18%</span>
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-label">דילול</span>
+          <span class="slider-value" id="dil-c-out">15%</span>
+        </div>
+        <input type="range" id="dil-c-slider" min="8" max="25" step="1" value="15">
       </div>
-      <input type="range" id="dil-b-slider" min="10" max="30" step="1" value="18">
-    </div>
-    <div class="slider-group">
-      <div class="slider-header">
-        <span class="slider-label">ולואציה בסבב C</span>
-        <span class="slider-value" id="val-c-out">$1B</span>
-      </div>
-      <input type="range" id="val-c-slider" min="500" max="7000" step="50" value="1000">
-    </div>
-    <div class="slider-group">
-      <div class="slider-header">
-        <span class="slider-label">דילול בסבב C</span>
-        <span class="slider-value" id="dil-c-out">15%</span>
-      </div>
-      <input type="range" id="dil-c-slider" min="8" max="25" step="1" value="15">
     </div>
   </div>
 
