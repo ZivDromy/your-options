@@ -67,6 +67,8 @@
   --round-f-light: #897298;
   --round-exit: #B8902C;
   --round-exit-light: #D4B25A;
+  --round-shutdown: #6B5D55;
+  --round-shutdown-light: #8E817A;
 }
 
 body {
@@ -368,6 +370,7 @@ input[type="range"]::-moz-range-thumb {
 .milestone.round-e { --round-color: var(--round-e); --round-color-light: var(--round-e-light); }
 .milestone.round-f { --round-color: var(--round-f); --round-color-light: var(--round-f-light); }
 .milestone.round-exit { --round-color: var(--round-exit); --round-color-light: var(--round-exit-light); }
+.milestone.round-shutdown { --round-color: var(--round-shutdown); --round-color-light: var(--round-shutdown-light); }
 
 .milestone.featured .milestone-stage {
   color: var(--round-color);
@@ -630,6 +633,7 @@ header { animation-delay: 0.05s; }
     <p>זהו <strong>כלי לחקירת תרחישים</strong>, לא תחזית. המטרה היא לתת תחושה לטווח האפשרי של שווי האופציות שלך לאורך מסלול גיוס אפשרי — לא להבטיח תוצאה.</p>
     <p>בפועל יש המון גורמים שמשפיעים: חברות לא תמיד מגיעות לסבב הבא, ולואציות עולות ויורדות, דילול אמיתי כולל גם option pool refresh ו-anti-dilution, וקיימים liquidation preferences שמשנים מי מקבל מה באקזיט. <strong>אל תקבל החלטות חיים על בסיס המספרים כאן.</strong></p>
     <p>המספרים שמופיעים לחברות השונות עלולים להיות שגויים ומבוססים על חיפוש אינטרנטי. <strong>נא לא להסתמך עליהם כאמת מדויקת.</strong></p>
+    <p>אחוזי הדילול בין הסבבים הם <strong>הערכה בלבד</strong>. דילול אמיתי תלוי בגודל הסבב, ב-option pool refreshes, וב-anti-dilution clauses — נתונים שלא תמיד פומביים.</p>
   </div>
 
   <div class="section">
@@ -678,6 +682,12 @@ header { animation-delay: 0.05s; }
           <button class="chip" data-company="bionic"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=bionic.ai&sz=64" alt="">Bionic</button>
           <button class="chip" data-company="gem"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=gem.security&sz=64" alt="">Gem</button>
           <button class="chip" data-company="trail"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=trail.security&sz=64" alt="">Trail</button>
+        </div>
+      </div>
+      <div class="examples-group">
+        <div class="examples-group-title">סגורות</div>
+        <div class="chips">
+          <button class="chip" data-company="cortanix"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=cortanix.com&sz=64" alt="">Cortanix</button>
         </div>
       </div>
       <div class="examples-group">
@@ -909,6 +919,13 @@ header { animation-delay: 0.05s; }
         { label: 'Seed', val: 50, dilution: 25 },
         { label: 'אקזיט', val: 162, dilution: 0, isExit: true }
       ]
+    },
+    cortanix: {
+      name: 'Cortanix', acquirer: null, shutdown: true,
+      rounds: [
+        { label: 'Seed', val: 80, dilution: 25 },
+        { label: 'סגירה', val: 0, dilution: 0, isShutdown: true }
+      ]
     }
   };
 
@@ -946,10 +963,13 @@ header { animation-delay: 0.05s; }
       }));
     }
     const c = COMPANIES[mode];
-    return c.rounds.map((r, i) => ({
-      ...r,
-      color: r.isExit ? 'exit' : COLOR_CYCLE[i % COLOR_CYCLE.length]
-    }));
+    return c.rounds.map((r, i) => {
+      let color;
+      if (r.isShutdown) color = 'shutdown';
+      else if (r.isExit) color = 'exit';
+      else color = COLOR_CYCLE[i % COLOR_CYCLE.length];
+      return { ...r, color };
+    });
   }
 
   function render() {
@@ -969,12 +989,14 @@ header { animation-delay: 0.05s; }
       pct *= (1 - r.dilution / 100);
       const usd = r.val * 1000000 * pct / 100;
       const ils = usd * fxRate;
-      const stageText = r.isExit ? 'אקזיט' : 'אחרי סבב ' + r.label;
-      const contextText = r.isExit ? 'מחיר רכישה' : 'בוולואציה';
-      const exitClass = r.isExit ? ' is-exit' : '';
+      const stageText = r.isShutdown ? 'סגירה' : (r.isExit ? 'אקזיט' : 'אחרי סבב ' + r.label);
+      const contextHtml = r.isShutdown
+        ? 'החברה נסגרה — אפס לעובדים'
+        : (r.isExit ? 'מחיר רכישה ' : 'בוולואציה ') + fmtValM(r.val);
+      const exitClass = (r.isExit || r.isShutdown) ? ' is-exit' : '';
       return '<div class="milestone featured round-' + r.color + exitClass + '">' +
         '<span class="milestone-stage">' + stageText + '</span>' +
-        '<span class="milestone-context">' + contextText + ' ' + fmtValM(r.val) + '</span>' +
+        '<span class="milestone-context">' + contextHtml + '</span>' +
         '<span class="milestone-amount">' +
           '<span>' + fmtUSD(usd) + '</span>' +
           '<span class="milestone-amount-ils">≈ ' + fmtILS(ils) + '</span>' +
@@ -1008,13 +1030,14 @@ header { animation-delay: 0.05s; }
     } else {
       const c = COMPANIES[mode];
       title.textContent = 'מסלול ' + c.name;
+      info.hidden = false;
       if (c.acquirer) {
-        info.hidden = false;
         const exitRound = c.rounds.find(r => r.isExit);
         const priceText = exitRound ? ' תמורת <strong>' + fmtValM(exitRound.val) + '</strong>' : '';
         info.innerHTML = '<strong>' + c.name + '</strong> נרכשה ע״י <strong>' + c.acquirer + '</strong>' + priceText;
+      } else if (c.shutdown) {
+        info.innerHTML = '<strong>' + c.name + '</strong> נסגרה · המשקיעים קיבלו חלק מההון בחזרה, העובדים — אפס';
       } else {
-        info.hidden = false;
         info.innerHTML = '<strong>' + c.name + '</strong> · יוניקורן פעיל';
       }
     }
