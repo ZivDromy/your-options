@@ -654,7 +654,7 @@ header { animation-delay: 0.05s; }
   <div class="section">
     <div class="section-head">
       <span class="section-num">ii</span>
-      <span class="section-title" id="section-ii-title">כל חברות הסייברסטארטס שנמכרו/נסגרו/מעל 1B</span>
+      <span class="section-title" id="section-ii-title">כל חברות סייברסטארטס שהן יוניקורן פעיל, נקנו או נסגרו</span>
       <span class="section-rule"></span>
     </div>
 
@@ -1021,15 +1021,12 @@ header { animation-delay: 0.05s; }
     });
     $('custom-sliders').hidden = (mode !== 'custom');
 
-    const title = $('section-ii-title');
     const info = $('company-info');
     if (mode === 'custom') {
-      title.textContent = 'כל חברות הסייברסטארטס שנמכרו/נסגרו/מעל 1B';
       info.hidden = true;
       info.innerHTML = '';
     } else {
       const c = COMPANIES[mode];
-      title.textContent = 'מסלול ' + c.name;
       info.hidden = false;
       if (c.acquirer) {
         const exitRound = c.rounds.find(r => r.isExit);
