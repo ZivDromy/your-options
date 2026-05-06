@@ -59,6 +59,14 @@
   --round-b-light: #D49460;
   --round-c: #7D2E40;
   --round-c-light: #A85868;
+  --round-d: #2D6878;
+  --round-d-light: #5A8C9C;
+  --round-e: #7A8A2E;
+  --round-e-light: #A0B05A;
+  --round-f: #5D4470;
+  --round-f-light: #897298;
+  --round-exit: #B8902C;
+  --round-exit-light: #D4B25A;
 }
 
 body {
@@ -202,6 +210,9 @@ h1 em {
 .round-group.round-a { --round-color: var(--round-a); --round-color-light: var(--round-a-light); }
 .round-group.round-b { --round-color: var(--round-b); --round-color-light: var(--round-b-light); }
 .round-group.round-c { --round-color: var(--round-c); --round-color-light: var(--round-c-light); }
+.round-group.round-d { --round-color: var(--round-d); --round-color-light: var(--round-d-light); }
+.round-group.round-e { --round-color: var(--round-e); --round-color-light: var(--round-e-light); }
+.round-group.round-f { --round-color: var(--round-f); --round-color-light: var(--round-f-light); }
 
 .round-group:last-child {
   margin-bottom: 0;
@@ -353,11 +364,17 @@ input[type="range"]::-moz-range-thumb {
 .milestone.round-a { --round-color: var(--round-a); --round-color-light: var(--round-a-light); }
 .milestone.round-b { --round-color: var(--round-b); --round-color-light: var(--round-b-light); }
 .milestone.round-c { --round-color: var(--round-c); --round-color-light: var(--round-c-light); }
+.milestone.round-d { --round-color: var(--round-d); --round-color-light: var(--round-d-light); }
+.milestone.round-e { --round-color: var(--round-e); --round-color-light: var(--round-e-light); }
+.milestone.round-f { --round-color: var(--round-f); --round-color-light: var(--round-f-light); }
+.milestone.round-exit { --round-color: var(--round-exit); --round-color-light: var(--round-exit-light); }
 
-.milestone.featured.round-a .milestone-stage,
-.milestone.featured.round-b .milestone-stage,
-.milestone.featured.round-c .milestone-stage {
+.milestone.featured .milestone-stage {
   color: var(--round-color);
+}
+
+.milestone.is-exit {
+  border-width: 2px;
 }
 
 .milestone-stage {
@@ -472,6 +489,103 @@ input[type="range"]::-moz-range-thumb {
   font-weight: 700;
 }
 
+.examples-row {
+  margin-bottom: 1.25rem;
+}
+
+.examples-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.examples-group {
+  margin-bottom: 0.65rem;
+}
+
+.examples-group:last-child {
+  margin-bottom: 0;
+}
+
+.examples-group-title {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  font-family: 'Assistant', sans-serif;
+  background: var(--bg-card);
+  border: 1px solid var(--line-strong);
+  color: var(--ink-2);
+  padding: 0.35rem 0.85rem 0.35rem 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.chip-custom {
+  padding: 0.4rem 0.85rem;
+}
+
+.chip-logo {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  object-fit: contain;
+  background: rgba(255,255,255,0.6);
+  flex-shrink: 0;
+}
+
+.chip:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+.chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.chip-custom {
+  font-style: italic;
+}
+
+.company-info {
+  margin-bottom: 1.25rem;
+  padding: 0.7rem 0.95rem;
+  background: var(--bg-card);
+  border-right: 3px solid var(--accent);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--ink-2);
+}
+
+.company-info strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
 @media (max-width: 380px) {
   h1 { font-size: 1.85rem; }
   .container { padding: 1.25rem 1rem 2rem; }
@@ -515,6 +629,7 @@ header { animation-delay: 0.05s; }
     <span class="disclaimer-label">לפני שמתחילים</span>
     <p>זהו <strong>כלי לחקירת תרחישים</strong>, לא תחזית. המטרה היא לתת תחושה לטווח האפשרי של שווי האופציות שלך לאורך מסלול גיוס אפשרי — לא להבטיח תוצאה.</p>
     <p>בפועל יש המון גורמים שמשפיעים: חברות לא תמיד מגיעות לסבב הבא, ולואציות עולות ויורדות, דילול אמיתי כולל גם option pool refresh ו-anti-dilution, וקיימים liquidation preferences שמשנים מי מקבל מה באקזיט. <strong>אל תקבל החלטות חיים על בסיס המספרים כאן.</strong></p>
+    <p>המספרים שמופיעים לחברות השונות עלולים להיות שגויים ומבוססים על חיפוש אינטרנטי. <strong>נא לא להסתמך עליהם כאמת מדויקת.</strong></p>
   </div>
 
   <div class="section">
@@ -535,9 +650,46 @@ header { animation-delay: 0.05s; }
   <div class="section">
     <div class="section-head">
       <span class="section-num">ii</span>
-      <span class="section-title">ציפיות עתידיות</span>
+      <span class="section-title" id="section-ii-title">ציפיות עתידיות</span>
       <span class="section-rule"></span>
     </div>
+
+    <div class="examples-row">
+      <div class="examples-label">דוגמה מחברה אמיתית</div>
+      <div class="examples-group">
+        <div class="examples-group-title">יוניקורנים</div>
+        <div class="chips">
+          <button class="chip" data-company="cyera"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=cyera.io&sz=64" alt="">Cyera</button>
+          <button class="chip" data-company="fireblocks"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=fireblocks.com&sz=64" alt="">Fireblocks</button>
+          <button class="chip" data-company="island"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=island.io&sz=64" alt="">Island</button>
+          <button class="chip" data-company="upwind"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=upwind.io&sz=64" alt="">Upwind</button>
+          <button class="chip" data-company="glow"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=glow.security&sz=64" alt="">Glow</button>
+        </div>
+      </div>
+      <div class="examples-group">
+        <div class="examples-group-title">אקזיטים</div>
+        <div class="chips">
+          <button class="chip" data-company="wiz"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=wiz.io&sz=64" alt="">Wiz</button>
+          <button class="chip" data-company="talon"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=talon-sec.com&sz=64" alt="">Talon</button>
+          <button class="chip" data-company="axis"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=axissecurity.com&sz=64" alt="">Axis</button>
+          <button class="chip" data-company="noname"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=nonamesecurity.com&sz=64" alt="">Noname</button>
+          <button class="chip" data-company="dazz"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=dazz.io&sz=64" alt="">Dazz</button>
+          <button class="chip" data-company="avalor"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=avalor.io&sz=64" alt="">Avalor</button>
+          <button class="chip" data-company="bionic"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=bionic.ai&sz=64" alt="">Bionic</button>
+          <button class="chip" data-company="gem"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=gem.security&sz=64" alt="">Gem</button>
+          <button class="chip" data-company="trail"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=trail.security&sz=64" alt="">Trail</button>
+        </div>
+      </div>
+      <div class="examples-group">
+        <div class="chips">
+          <button class="chip chip-custom active" data-company="custom">התאם אישית</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="company-info" id="company-info" hidden></div>
+
+    <div id="custom-sliders">
     <div class="round-group round-a">
       <span class="round-group-label">סבב A</span>
       <div class="slider-group">
@@ -579,9 +731,9 @@ header { animation-delay: 0.05s; }
       <div class="slider-group">
         <div class="slider-header">
           <span class="slider-label">ולואציה</span>
-          <span class="slider-value" id="val-c-out">$1B</span>
+          <span class="slider-value" id="val-c-out">$1.2B</span>
         </div>
-        <input type="range" id="val-c-slider" min="500" max="7000" step="50" value="1000">
+        <input type="range" id="val-c-slider" min="500" max="7000" step="50" value="1200">
       </div>
       <div class="slider-group">
         <div class="slider-header">
@@ -590,6 +742,43 @@ header { animation-delay: 0.05s; }
         </div>
         <input type="range" id="dil-c-slider" min="8" max="25" step="1" value="15">
       </div>
+    </div>
+
+    <div class="round-group round-d">
+      <span class="round-group-label">סבב D</span>
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-label">ולואציה</span>
+          <span class="slider-value" id="val-d-out">$2.5B</span>
+        </div>
+        <input type="range" id="val-d-slider" min="500" max="20000" step="100" value="2500">
+      </div>
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-label">דילול</span>
+          <span class="slider-value" id="dil-d-out">12%</span>
+        </div>
+        <input type="range" id="dil-d-slider" min="5" max="20" step="1" value="12">
+      </div>
+    </div>
+
+    <div class="round-group round-e">
+      <span class="round-group-label">סבב E</span>
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-label">ולואציה</span>
+          <span class="slider-value" id="val-e-out">$5B</span>
+        </div>
+        <input type="range" id="val-e-slider" min="1000" max="40000" step="100" value="5000">
+      </div>
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-label">דילול</span>
+          <span class="slider-value" id="dil-e-out">10%</span>
+        </div>
+        <input type="range" id="dil-e-slider" min="5" max="18" step="1" value="10">
+      </div>
+    </div>
     </div>
   </div>
 
@@ -607,6 +796,123 @@ header { animation-delay: 0.05s; }
   const FX_FALLBACK = 2.96;
   let fxRate = FX_FALLBACK;
   let fxStatus = 'fallback';
+
+  const COLOR_CYCLE = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+  const COMPANIES = {
+    cyera: {
+      name: 'Cyera', acquirer: null,
+      rounds: [
+        { label: 'A', val: 200,  dilution: 28 },
+        { label: 'B', val: 500,  dilution: 20 },
+        { label: 'C', val: 1400, dilution: 21 },
+        { label: 'D', val: 3000, dilution: 10 },
+        { label: 'E', val: 6000, dilution: 9 },
+        { label: 'F', val: 9000, dilution: 4 }
+      ]
+    },
+    fireblocks: {
+      name: 'Fireblocks', acquirer: null,
+      rounds: [
+        { label: 'C', val: 700,  dilution: 19 },
+        { label: 'D', val: 2000, dilution: 15 },
+        { label: 'E', val: 8000, dilution: 7 }
+      ]
+    },
+    island: {
+      name: 'Island', acquirer: null,
+      rounds: [
+        { label: 'B', val: 1300, dilution: 9 },
+        { label: 'C', val: 1500, dilution: 7 },
+        { label: 'D', val: 3000, dilution: 6 },
+        { label: 'E', val: 4850, dilution: 5 }
+      ]
+    },
+    upwind: {
+      name: 'Upwind', acquirer: null,
+      rounds: [
+        { label: 'A', val: 900,  dilution: 11 },
+        { label: 'B', val: 1500, dilution: 16 }
+      ]
+    },
+    wiz: {
+      name: 'Wiz', acquirer: 'Google',
+      rounds: [
+        { label: 'A', val: 1700,  dilution: 8 },
+        { label: 'B', val: 6000,  dilution: 4 },
+        { label: 'C', val: 10000, dilution: 3 },
+        { label: 'E', val: 12000, dilution: 8 },
+        { label: 'אקזיט', val: 32000, dilution: 0, isExit: true }
+      ]
+    },
+    talon: {
+      name: 'Talon', acquirer: 'Palo Alto Networks',
+      rounds: [
+        { label: 'A', val: 350, dilution: 28 },
+        { label: 'אקזיט', val: 625, dilution: 0, isExit: true }
+      ]
+    },
+    noname: {
+      name: 'Noname', acquirer: 'Akamai',
+      rounds: [
+        { label: 'C', val: 1000, dilution: 14 },
+        { label: 'אקזיט', val: 450, dilution: 0, isExit: true }
+      ]
+    },
+    dazz: {
+      name: 'Dazz', acquirer: 'Wiz',
+      rounds: [
+        { label: 'B', val: 400, dilution: 13 },
+        { label: 'אקזיט', val: 450, dilution: 0, isExit: true }
+      ]
+    },
+    bionic: {
+      name: 'Bionic', acquirer: 'CrowdStrike',
+      rounds: [
+        { label: 'B', val: 300, dilution: 22 },
+        { label: 'אקזיט', val: 350, dilution: 0, isExit: true }
+      ]
+    },
+    glow: {
+      name: 'Glow', acquirer: null,
+      rounds: [
+        { label: 'A', val: 400,  dilution: 22 },
+        { label: 'B', val: 1000, dilution: 10 }
+      ]
+    },
+    avalor: {
+      name: 'Avalor', acquirer: 'Zscaler',
+      rounds: [
+        { label: 'Seed', val: 25,  dilution: 22 },
+        { label: 'A',    val: 120, dilution: 17 },
+        { label: 'אקזיט', val: 350, dilution: 0, isExit: true }
+      ]
+    },
+    gem: {
+      name: 'Gem Security', acquirer: 'Wiz',
+      rounds: [
+        { label: 'A', val: 80, dilution: 14 },
+        { label: 'אקזיט', val: 350, dilution: 0, isExit: true }
+      ]
+    },
+    axis: {
+      name: 'Axis Security', acquirer: 'HPE Aruba',
+      rounds: [
+        { label: 'B', val: 150, dilution: 18 },
+        { label: 'C', val: 300, dilution: 17 },
+        { label: 'אקזיט', val: 450, dilution: 0, isExit: true }
+      ]
+    },
+    trail: {
+      name: 'Trail Security', acquirer: 'Cyera',
+      rounds: [
+        { label: 'Seed', val: 50, dilution: 25 },
+        { label: 'אקזיט', val: 162, dilution: 0, isExit: true }
+      ]
+    }
+  };
+
+  let mode = 'custom';
 
   const fmtUSD = (n) => {
     if (n >= 1000000000) return '$' + (Math.round(n / 100000000) / 10).toFixed(1).replace(/\.0$/, '') + 'B';
@@ -628,56 +934,47 @@ header { animation-delay: 0.05s; }
 
   const $ = (id) => document.getElementById(id);
 
-  function compute() {
-    const grantPct = parseFloat($('grant-slider').value);
-    const valAm = parseFloat($('val-a-slider').value);
-    const valBm = parseFloat($('val-b-slider').value);
-    const valCm = parseFloat($('val-c-slider').value);
-    const dilA = parseFloat($('dil-a-slider').value) / 100;
-    const dilB = parseFloat($('dil-b-slider').value) / 100;
-    const dilC = parseFloat($('dil-c-slider').value) / 100;
-    const valA = valAm * 1000000;
-    const valB = valBm * 1000000;
-    const valC = valCm * 1000000;
+  const CUSTOM_LETTERS = ['a', 'b', 'c', 'd', 'e'];
 
-    const pctAfterA = grantPct * (1 - dilA);
-    const pctAfterB = pctAfterA * (1 - dilB);
-    const pctAfterC = pctAfterB * (1 - dilC);
-
-    return {
-      grantPct,
-      valAm, valBm, valCm,
-      dilA, dilB, dilC,
-      valA, valB, valC,
-      pctAfterA, pctAfterB, pctAfterC,
-      amountA: valA * pctAfterA / 100,
-      amountB: valB * pctAfterB / 100,
-      amountC: valC * pctAfterC / 100
-    };
+  function getRounds() {
+    if (mode === 'custom') {
+      return CUSTOM_LETTERS.map((letter, i) => ({
+        label: letter.toUpperCase(),
+        val: parseFloat($('val-' + letter + '-slider').value),
+        dilution: parseFloat($('dil-' + letter + '-slider').value),
+        color: COLOR_CYCLE[i]
+      }));
+    }
+    const c = COMPANIES[mode];
+    return c.rounds.map((r, i) => ({
+      ...r,
+      color: r.isExit ? 'exit' : COLOR_CYCLE[i % COLOR_CYCLE.length]
+    }));
   }
 
   function render() {
-    const s = compute();
+    const grantPct = parseFloat($('grant-slider').value);
+    $('grant-out').textContent = grantPct.toFixed(2) + '%';
 
-    $('grant-out').textContent = s.grantPct.toFixed(2) + '%';
-    $('val-a-out').textContent = fmtValM(s.valAm);
-    $('val-b-out').textContent = fmtValM(s.valBm);
-    $('val-c-out').textContent = fmtValM(s.valCm);
-    $('dil-a-out').textContent = (s.dilA * 100).toFixed(0) + '%';
-    $('dil-b-out').textContent = (s.dilB * 100).toFixed(0) + '%';
-    $('dil-c-out').textContent = (s.dilC * 100).toFixed(0) + '%';
+    if (mode === 'custom') {
+      CUSTOM_LETTERS.forEach(letter => {
+        $('val-' + letter + '-out').textContent = fmtValM(parseFloat($('val-' + letter + '-slider').value));
+        $('dil-' + letter + '-out').textContent = $('dil-' + letter + '-slider').value + '%';
+      });
+    }
 
-    const stages = ['אחרי סבב A', 'אחרי סבב B', 'אחרי סבב C'];
-    const valuations = [s.valAm, s.valBm, s.valCm];
-    const amounts = [s.amountA, s.amountB, s.amountC];
-
-    const roundClasses = ['round-a', 'round-b', 'round-c'];
-    $('milestones').innerHTML = stages.map((stage, i) => {
-      const usd = amounts[i];
+    const rounds = getRounds();
+    let pct = grantPct;
+    $('milestones').innerHTML = rounds.map((r) => {
+      pct *= (1 - r.dilution / 100);
+      const usd = r.val * 1000000 * pct / 100;
       const ils = usd * fxRate;
-      return '<div class="milestone featured ' + roundClasses[i] + '">' +
-        '<span class="milestone-stage">' + stage + '</span>' +
-        '<span class="milestone-context">בוולואציה ' + fmtValM(valuations[i]) + '</span>' +
+      const stageText = r.isExit ? 'אקזיט' : 'אחרי סבב ' + r.label;
+      const contextText = r.isExit ? 'מחיר רכישה' : 'בוולואציה';
+      const exitClass = r.isExit ? ' is-exit' : '';
+      return '<div class="milestone featured round-' + r.color + exitClass + '">' +
+        '<span class="milestone-stage">' + stageText + '</span>' +
+        '<span class="milestone-context">' + contextText + ' ' + fmtValM(r.val) + '</span>' +
         '<span class="milestone-amount">' +
           '<span>' + fmtUSD(usd) + '</span>' +
           '<span class="milestone-amount-ils">≈ ' + fmtILS(ils) + '</span>' +
@@ -693,6 +990,33 @@ header { animation-delay: 0.05s; }
     } else {
       note.textContent = 'USD/ILS · טוען...';
     }
+  }
+
+  function setMode(newMode) {
+    mode = newMode;
+    document.querySelectorAll('.chip').forEach(c => {
+      c.classList.toggle('active', c.dataset.company === mode);
+    });
+    $('custom-sliders').hidden = (mode !== 'custom');
+
+    const title = $('section-ii-title');
+    const info = $('company-info');
+    if (mode === 'custom') {
+      title.textContent = 'ציפיות עתידיות';
+      info.hidden = true;
+      info.innerHTML = '';
+    } else {
+      const c = COMPANIES[mode];
+      title.textContent = 'מסלול ' + c.name;
+      if (c.acquirer) {
+        info.hidden = false;
+        info.innerHTML = '<strong>' + c.name + '</strong> נרכשה ע״י <strong>' + c.acquirer + '</strong>';
+      } else {
+        info.hidden = false;
+        info.innerHTML = '<strong>' + c.name + '</strong> · יוניקורן פעיל';
+      }
+    }
+    render();
   }
 
   fxStatus = 'loading';
@@ -714,8 +1038,17 @@ header { animation-delay: 0.05s; }
       render();
     });
 
-  ['grant-slider', 'val-a-slider', 'val-b-slider', 'val-c-slider', 'dil-a-slider', 'dil-b-slider', 'dil-c-slider'].forEach(id => {
+  const sliderIds = ['grant-slider'];
+  CUSTOM_LETTERS.forEach(l => {
+    sliderIds.push('val-' + l + '-slider');
+    sliderIds.push('dil-' + l + '-slider');
+  });
+  sliderIds.forEach(id => {
     $(id).addEventListener('input', render);
+  });
+
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => setMode(chip.dataset.company));
   });
 
   render();
