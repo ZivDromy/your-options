@@ -557,6 +557,27 @@ input[type="range"]::-moz-range-thumb {
   flex-shrink: 0;
 }
 
+.chip-initial {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--ink-3);
+  color: var(--bg-card);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.chip.active .chip-initial {
+  background: var(--bg);
+  color: var(--accent);
+}
+
 .chip:hover {
   border-color: var(--accent);
   color: var(--ink);
@@ -678,14 +699,16 @@ header { animation-delay: 0.05s; }
           <button class="chip" data-company="noname"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=nonamesecurity.com&sz=64" alt="">Noname</button>
           <button class="chip" data-company="dazz"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=dazz.io&sz=64" alt="">Dazz</button>
           <button class="chip" data-company="avalor"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=avalor.io&sz=64" alt="">Avalor</button>
-          <button class="chip" data-company="bionic"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=bionic.ai&sz=64" alt="">Bionic</button>
-          <button class="chip" data-company="trail"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=trail.security&sz=64" alt="">Trail</button>
+          <button class="chip" data-company="bionic"><img class="chip-logo" src="https://icons.duckduckgo.com/ip3/bionic.ai.ico" alt="">Bionic</button>
+          <button class="chip" data-company="savvy"><img class="chip-logo" src="https://icons.duckduckgo.com/ip3/savvy.security.ico" alt="">Savvy</button>
+          <button class="chip" data-company="trustdome"><span class="chip-initial">T</span>Trustdome</button>
+          <button class="chip" data-company="trail"><img class="chip-logo" src="https://icons.duckduckgo.com/ip3/trail.security.ico" alt="">Trail</button>
         </div>
       </div>
       <div class="examples-group">
         <div class="examples-group-title">סגורות</div>
         <div class="chips">
-          <button class="chip" data-company="cortanix"><img class="chip-logo" src="https://www.google.com/s2/favicons?domain=cortanix.com&sz=64" alt="">Cortanix</button>
+          <button class="chip" data-company="cortanix"><span class="chip-initial">C</span>Cortanix</button>
         </div>
       </div>
       <div class="examples-group">
@@ -902,6 +925,21 @@ header { animation-delay: 0.05s; }
       rounds: [
         { label: 'Seed', val: 50, dilution: 25 },
         { label: 'אקזיט', val: 162, dilution: 0, isExit: true }
+      ]
+    },
+    savvy: {
+      name: 'Savvy', acquirer: 'SailPoint',
+      rounds: [
+        { label: 'Seed', val: 30,  dilution: 22 },
+        { label: 'A',    val: 120, dilution: 20 },
+        { label: 'אקזיט', val: 60, dilution: 0, isExit: true }
+      ]
+    },
+    trustdome: {
+      name: 'Trustdome', acquirer: 'Zscaler',
+      rounds: [
+        { label: 'Seed', val: 15, dilution: 22 },
+        { label: 'אקזיט', val: 40, dilution: 0, isExit: true }
       ]
     },
     cortanix: {
