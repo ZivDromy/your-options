@@ -1010,7 +1010,9 @@ header { animation-delay: 0.05s; }
       title.textContent = 'מסלול ' + c.name;
       if (c.acquirer) {
         info.hidden = false;
-        info.innerHTML = '<strong>' + c.name + '</strong> נרכשה ע״י <strong>' + c.acquirer + '</strong>';
+        const exitRound = c.rounds.find(r => r.isExit);
+        const priceText = exitRound ? ' תמורת <strong>' + fmtValM(exitRound.val) + '</strong>' : '';
+        info.innerHTML = '<strong>' + c.name + '</strong> נרכשה ע״י <strong>' + c.acquirer + '</strong>' + priceText;
       } else {
         info.hidden = false;
         info.innerHTML = '<strong>' + c.name + '</strong> · יוניקורן פעיל';
