@@ -492,6 +492,45 @@ input[type="range"]::-moz-range-thumb {
   font-weight: 700;
 }
 
+.explainer-list {
+  list-style: none;
+  counter-reset: explainer;
+  margin: 0;
+  padding: 0;
+}
+
+.explainer-list li {
+  counter-increment: explainer;
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 0.95rem;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.explainer-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.explainer-list li:first-child {
+  padding-top: 0;
+}
+
+.explainer-list li::before {
+  content: counter(explainer);
+  font-family: 'Frank Ruhl Libre', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--accent);
+  font-weight: 400;
+  min-width: 1.4rem;
+  flex-shrink: 0;
+}
+
 .examples-row {
   margin-bottom: 1.25rem;
 }
@@ -660,6 +699,22 @@ header { animation-delay: 0.05s; }
   <div class="section">
     <div class="section-head">
       <span class="section-num">i</span>
+      <span class="section-title">הסבר על אופציות</span>
+      <span class="section-rule"></span>
+    </div>
+    <ol class="explainer-list">
+      <li>מה זה אופציות?</li>
+      <li>איך עובדים מקבלים אופציות — vesting, תהליך מכירה</li>
+      <li>השינוי בשווי האופציות לאורך גיוסים + דילול</li>
+      <li>ההבדל בכמות האופציות שעובדים מקבלים לאורך זמן</li>
+      <li>מימוש אופציות לאורך זמן: secondary</li>
+      <li>דוגמאות לחברות סייברסטארטס</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">ii</span>
       <span class="section-title">האופציות שלך</span>
       <span class="section-rule"></span>
     </div>
@@ -674,7 +729,7 @@ header { animation-delay: 0.05s; }
 
   <div class="section">
     <div class="section-head">
-      <span class="section-num">ii</span>
+      <span class="section-num">iii</span>
       <span class="section-title" id="section-ii-title">חברות סייברסטארטס שהן יוניקורן פעיל, שנקנו או שנסגרו</span>
       <span class="section-rule"></span>
     </div>
