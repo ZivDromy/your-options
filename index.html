@@ -320,6 +320,53 @@ input[type="range"]::-moz-range-thumb {
   box-shadow: 0 0 0 1px var(--accent);
 }
 
+.number-field {
+  display: flex;
+  align-items: stretch;
+  margin-top: 0.5rem;
+  border: 1px solid var(--line-strong);
+  background: var(--bg);
+}
+
+.number-field:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.number-suffix {
+  display: flex;
+  align-items: center;
+  padding: 0 0.9rem;
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1.15rem;
+  color: var(--ink-3);
+  background: var(--bg-card);
+  border-left: 1px solid var(--line);
+}
+
+.number-input {
+  flex: 1;
+  width: 100%;
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.5rem 0.85rem;
+  text-align: right;
+  -moz-appearance: textfield;
+}
+
+.number-input::-webkit-outer-spin-button,
+.number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .chart-wrap {
   background: var(--bg-card);
   border: 1px solid var(--line);
@@ -721,9 +768,11 @@ header { animation-delay: 0.05s; }
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">גודל האופציות הנוכחי</span>
-        <span class="slider-value" id="grant-out">0.05%</span>
       </div>
-      <input type="range" id="grant-slider" min="0" max="0.5" step="0.01" value="0.05">
+      <div class="number-field">
+        <span class="number-suffix">%</span>
+        <input type="number" class="number-input" id="grant-input" min="0" max="100" step="any" value="0" inputmode="decimal" placeholder="0">
+      </div>
     </div>
   </div>
 
@@ -1050,8 +1099,7 @@ header { animation-delay: 0.05s; }
   }
 
   function render() {
-    const grantPct = parseFloat($('grant-slider').value);
-    $('grant-out').textContent = grantPct.toFixed(2) + '%';
+    const grantPct = parseFloat($('grant-input').value) || 0;
 
     if (mode === 'custom') {
       CUSTOM_LETTERS.forEach(letter => {
@@ -1137,7 +1185,7 @@ header { animation-delay: 0.05s; }
       render();
     });
 
-  const sliderIds = ['grant-slider'];
+  const sliderIds = ['grant-input'];
   CUSTOM_LETTERS.forEach(l => {
     sliderIds.push('val-' + l + '-slider');
     sliderIds.push('dil-' + l + '-slider');
